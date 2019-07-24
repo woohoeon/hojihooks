@@ -8,15 +8,15 @@ import { useDispatch } from 'react-redux';
  * @param {Object} opts
  * @return {function} asyncDispatchAction
  */
-export const useAsyncDispatch = (asyncAction, callback, opts = { showProgressAction: null, hideProgressAction: null }) => {
+export const useAsyncDispatch = (asyncAction, callback, opts = { showProgress: null, hideProgress: null }) => {
 	const dispatch = useDispatch();
 	if (typeof asyncAction !== 'function') {
 		return;
 	}
 	const asyncDispatchAction = async (params) => {
-		const { showProgressAction, hideProgressAction } = opts;
-		if (showProgressAction && typeof showProgressAction === 'function') {
-			dispatch(showProgressAction());
+		const { showProgress, hideProgress } = opts;
+		if (showProgress && typeof showProgress === 'function') {
+			dispatch(showProgress());
 		}
 		try {
 			const result = await dispatch(asyncAction(params));
@@ -25,8 +25,8 @@ export const useAsyncDispatch = (asyncAction, callback, opts = { showProgressAct
 			}
 			return result;
 		} finally {
-			if (showProgressAction && typeof showProgressAction === 'function') {
-				dispatch(hideProgressAction());
+			if (showProgress && typeof showProgress === 'function') {
+				dispatch(hideProgress());
 			}
 		}
 	};

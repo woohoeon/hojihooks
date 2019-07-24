@@ -1,0 +1,36 @@
+{
+  "name": "@hojihooks/use-async-dispatch",
+  "version": "1.0.0",
+  "description": "React Hook to dispatch asynchronous action and shows the progress of the action.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woohoeon/hojihooks.git"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "hooks",
+    "react hooks",
+    "react-redux",
+    "redux",
+    "dispatch",
+    "async",
+    "reducer",
+    "progress",
+    "action"
+  ],
+  "author": "Hoeon Woo <woohoeon@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woohoeon/hojihooks/issues"
+  },
+  "homepage": "https://github.com/woohoeon/hojihooks#readme",
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4",
+    "redux-promise": "^0.6.0"
+  }
+}

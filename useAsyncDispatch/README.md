@@ -15,38 +15,86 @@ React Hook to dispatch asynchronous action and shows the progress of the action.
 ## Usage
 
 ```js
-import React from "react";
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import promiseMiddleware from "redux-promise";
 import useAsyncDispatch from "@hojihooks/use-async-dispatch";
 
-function App() {
-  // probably imported redux-action
-  const fetchData = async () => {
-    const { data } = await fetch();
+// Action Creators
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
     return {
-      type: "FETCH",
+      type: "FETCH_DATA",
       payload: { data }
     };
-  };
-  
-  // use simple
-  const simpleAsyncDispatchFetchData = useAsyncDispatch(fetchData);
-  
-  // use detail
-  const callback = () => { console.log('fetched data.') };
-  const detailAsyncDispatchFetchData = useAsyncDispatch(
-    fetchData,
-    callback,
-    { showProgressAction, hideProgressAction }
-  );
-  
-  useEffect(() => {
-    const params = {};
-    const data1 = simpleAsyncDispatchFetchData();
-    const data2 = detailAsyncDispatchFetchData(params); // use params
-  }, []);
-  
-  return `<h1>Hello hojihooks</h1>`;
+  } catch (error) {
+    return console.error(error);
+  }
 }
+
+function showProgress() {
+  return {
+    type: "SHOW_PROGRESS"
+  };
+}
+
+function hideProgress() {
+  return {
+    type: "HIDE_PROGRESS"
+  };
+}
+
+// Reducers
+function reducer(state = [], action) {
+  switch (action.type) {
+    case "FETCH_DATA":
+      console.log(action.payload.data);
+      return state;
+    case "SHOW_PROGRESS":
+      console.log("show progress");
+      return state;
+    case "HIDE_PROGRESS":
+      console.log("hide progress");
+      return state;
+    default:
+      return state;
+  }
+}
+
+const store = createStore(reducer, {}, applyMiddleware(promiseMiddleware));
+
+function App() {
+  // Easy to use
+  const fetchExample1 = useAsyncDispatch(fetchData);
+
+  // Using options
+  const callback = () => {
+    console.log("success");
+  };
+  const opts = {
+    showProgress,
+    hideProgress
+  };
+  const fetchExample2 = useAsyncDispatch(fetchData, callback, opts);
+
+  useEffect(() => {
+    fetchExample1("https://api.github.com/orgs/nodejs");
+    fetchExample2("https://api.github.com/gists");
+  });
+  return <h1>Hello Hojihooks</h1>;
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  rootElement
+);
 ```
 
 ### Arguments
@@ -54,8 +102,8 @@ function App() {
 | Argument | Type     | Description                                       | Required |
 | -------- | -------- | ------------------------------------------------- | -------- |
 | asyncAction  | function | Function to dispatch asynchronously | yes      |
-| callback  | function | Execution function after asynchronous dispatch completion | no      |
-| opts  | Object | showProgressAction: function (show progress action to dispatch), hideProgressAction: function (hide progress action to dispatch) | no      |
+| callback  | function | Callback function after asynchronous dispatch completion | no      |
+| opts  | Object | showProgress: Function to dispatch to show progress, hideProgress: Function to dispatch to hide progress | no      |
 
 ### Return
 
