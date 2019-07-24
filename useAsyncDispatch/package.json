@@ -1,6 +1,6 @@
 {
   "name": "@hojihooks/use-async-dispatch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Hook to dispatch asynchronous action and shows the progress of the action.",
   "main": "index.js",
   "repository": {
