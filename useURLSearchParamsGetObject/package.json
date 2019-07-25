@@ -1,0 +1,27 @@
+{
+  "name": "@hojihooks/use-url-search-params-get-object",
+  "version": "1.0.0",
+  "description": "React Hook to Returns all the values associated with a given search parameter as an object.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woohoeon/hojihooks.git"
+  },
+  "keywords": [
+    "react",
+    "hook",
+    "hooks",
+    "react hooks",
+    "urlsearchparams"
+  ],
+  "author": "Hoeon Woo <woohoeon@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/woohoeon/hojihooks/issues"
+  },
+  "homepage": "https://github.com/woohoeon/hojihooks#readme",
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
